@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RecipeResource;
 use App\Models\Recipe;
-use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
     public function index()
     {
-        return response()->json(Recipe::all());
+        $recipes = Recipe::latest()->take(6)->get();
+
+        return RecipeResource::collection($recipes);
     }
 }
-
