@@ -18,9 +18,7 @@ class RecipeFactory extends Factory
     {
         return [
             'title'=>$this->faker->sentence(3),
-            'image_url'=>$this->faker->imageUrl(),
-            'rating'=>$this->faker->numberBetween(1,5),
-            'views'=>$this->faker->numberBetween(0,999),
+
         ];
     }
 }

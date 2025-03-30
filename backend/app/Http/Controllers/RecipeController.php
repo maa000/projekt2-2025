@@ -9,7 +9,7 @@ class RecipeController extends Controller
 {
     public function index()
     {
-        $recipes = Recipe::latest()->take(6)->get();
+        $recipes = Recipe::get();
 
         return RecipeResource::collection($recipes);
     }

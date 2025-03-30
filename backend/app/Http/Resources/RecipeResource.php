@@ -18,10 +18,13 @@ class RecipeResource extends JsonResource
 //        return parent::toArray($request);
 
         return[
-            'title'=>$this->title,
+            'title'=>$this->recipe_name,
             'image_url'=>$this->image_url,
             'rating'=>$this->rating,
             'views'=>$this->views,
+            'User'=>$this->user_id,
+            'Category'=>$this->food_category_id,
+            'Description'=>$this->recipe_description,
         ];
     }
 }
