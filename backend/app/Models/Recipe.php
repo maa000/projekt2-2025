@@ -13,7 +13,9 @@ class Recipe extends Model
         'title',
         'image_url',
         'rating',
-        'views',
+        'category',
+        'description',
+        'likes'
     ];
 }
 

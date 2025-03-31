@@ -20,11 +20,8 @@ class RecipeResource extends JsonResource
         return[
             'title'=>$this->recipe_name,
             'image_url'=>$this->image_url,
-            'rating'=>$this->rating,
-            'views'=>$this->views,
-            'User'=>$this->user_id,
-            'Category'=>$this->food_category_id,
-            'Description'=>$this->recipe_description,
+            'rating'=>$this->like_count,
+            'description'=>$this->recipe_description,
         ];
     }
 }
