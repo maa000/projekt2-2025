@@ -19,7 +19,7 @@ return new class extends Migration
             $table->time('prep_time');
             $table->time('cook_time');
             $table->timestamp('upload_date')->useCurrent();
-            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('course_id')->references('course_id')->on('courses')->onDelete('set null');
             $table->foreign('food_category_id')->references('food_category_id')->on('food_categories')->onDelete('set null');
         });

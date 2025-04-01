@@ -15,13 +15,11 @@ class RecipeResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-//        return parent::toArray($request);
-
-        return[
-            'title'=>$this->recipe_name,
-            'image_url'=>$this->image_url,
-            'rating'=>$this->like_count,
-            'description'=>$this->recipe_description,
+        return [
+            'title' => $this->recipe_name,
+            'description' => $this->recipe_description,
+            'image_url' => $this->images->first()?->image_url, // csak az első kép
+            'rating' => $this->likes_count,
         ];
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->text('comment_text');
             $table->timestamp('comment_date');
             $table->foreign('recipe_id')->references('recipe_id')->on('recipes')->onDelete('cascade');
-            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }
