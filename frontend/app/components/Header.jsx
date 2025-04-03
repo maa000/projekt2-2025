@@ -9,6 +9,8 @@ export default function Header({ onNavigate }) {
                 <button onClick={() => onNavigate("submit")}>Recept beküldése</button>
                 <button onClick={() => onNavigate("profile")}>Profil</button>
                 <button onClick={() => onNavigate("team")}>Team</button>
+                <button onClick={() => onNavigate("register")}>Regisztráció</button>
+                <button onClick={() => onNavigate("login")}>Bejelentkezés</button>
             </nav>
         </header>
     );

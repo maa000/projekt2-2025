@@ -7,6 +7,8 @@ import Search from "./components/Search";
 import RecipeSection from "./components/RecipeSection";
 import Footer from "./components/Footer";
 import SubmitForm from "./components/SubmitForm";
+import RegisterForm from "./components/RegisterForm";
+import LoginForm from "./components/LoginForm";
 
 export default function Home() {
     const [recipes, setRecipes] = useState([]);
@@ -47,6 +49,9 @@ export default function Home() {
 
             {currentPage === "submit" && <SubmitForm/>}
 
+            {currentPage === "register" && <RegisterForm />}
+
+            {currentPage === "login" && <LoginForm />}
 
             {currentPage === "profile" && (
                 <div className="p-10 text-center">
