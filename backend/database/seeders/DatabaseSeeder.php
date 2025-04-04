@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             FoodCategorySeeder::class,
             RecipeSeeder::class,
+            RecipeLikeSeeder::class,
+            ImageSeeder::class
         ]);
     }
 

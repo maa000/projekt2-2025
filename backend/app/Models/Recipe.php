@@ -25,7 +25,7 @@ class Recipe extends Model
     // Egy recepthez több kép tartozhat (most csak az első kell)
     public function images()
     {
-        return $this->hasMany(Image::class, 'recipe_id');
+        return $this->hasOne(Image::class, 'recipe_id');
     }
 
     // Egy recepthez több like is tartozhat
@@ -33,5 +33,12 @@ class Recipe extends Model
     {
         return $this->hasMany(RecipeLike::class, 'recipe_id');
     }
+
+    public function courses()
+    {
+        return $this->hasOne(Course::class, 'course_id');
+    }
+
+
 }
 

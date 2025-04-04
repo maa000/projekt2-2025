@@ -22,3 +22,4 @@ class RecipeFactory extends Factory
         ];
     }
 }
+//Nincs használatban
