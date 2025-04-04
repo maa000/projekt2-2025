@@ -9,6 +9,9 @@ import Footer from "./components/Footer";
 import SubmitForm from "./components/SubmitForm";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
+import TeamPage from "./components/TeamPage";
+import ProfilePage from "@/app/components/ProfilePage";
+
 
 export default function Home() {
     const [recipes, setRecipes] = useState([]);
@@ -53,19 +56,9 @@ export default function Home() {
 
             {currentPage === "login" && <LoginForm />}
 
-            {currentPage === "profile" && (
-                <div className="p-10 text-center">
-                    <h2 className="text-3xl font-bold mb-4">Profil oldal</h2>
-                    <p>Itt lesz a felhasználói profil 👤</p>
-                </div>
-            )}
+            {currentPage === "profile" && <ProfilePage/>}
 
-            {currentPage === "team" && (
-                <div className="p-10 text-center">
-                    <h2 className="text-3xl font-bold mb-4">A csapat</h2>
-                    <p>Ismerd meg a fejlesztői csapatot! 👨‍🍳👩‍🍳</p>
-                </div>
-            )}
+            {currentPage === "team" && <TeamPage/>}
 
             <Footer />
         </div>
