@@ -1,4 +1,4 @@
-export default function RegisterForm() {
+export default function RegisterForm({onNavigate}) {
     return (
         <div className="bg-rose-400 min-h-screen flex items-center justify-center text-black p-4">
             <div className="bg-gray-900 p-8 rounded-3xl max-w-md w-full text-white">
@@ -34,11 +34,15 @@ export default function RegisterForm() {
                     </button>
                 </form>
 
-                <p className="text-sm text-center text-gray-300 mt-6">
-                    By using our website you agree to our{" "}
-                    <a href="#" className="text-white underline hover:text-rose-200">
-                        Terms of use
-                    </a>
+                <p className="text-xs text-center text-gray-600">
+                    A regisztrációval elfogadod a{" "}
+                    <button
+                        type="button"
+                        onClick={() => onNavigate("terms")}
+                        className="underline text-blue-600 hover:text-blue-800"
+                    >
+                        felhasználási feltételeket
+                    </button>.
                 </p>
             </div>
         </div>

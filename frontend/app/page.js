@@ -11,12 +11,18 @@ import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import TeamPage from "./components/TeamPage";
 import ProfilePage from "@/app/components/ProfilePage";
+import RecipeDetail from "./components/RecipeDetail";
+import RecipeBrowserPage from "./components/RecipeBrowserPage";
+import TermsOfUse from "./components/TermsOfUse";
+
+
 
 
 export default function Home() {
     const [recipes, setRecipes] = useState([]);
     const [currentPage, setCurrentPage] = useState("home"); // 👈 kezdetben főoldal
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [selectedRecipe, setSelectedRecipe] = useState(null);
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes`)
             .then((res) => res.json())
@@ -25,11 +31,25 @@ export default function Home() {
     }, []);
 
     const featured = recipes.slice(0, 3);
-    const topRated = recipes.slice(3, 5);
-
+    const topRated = recipes.length >= 6
+        ? recipes.slice(3, 6)
+        : [
+            { title: "Gulyásleves", image: "https://via.placeholder.com/300x200", rating: 5 },
+            { title: "Töltött paprika", image: "https://via.placeholder.com/300x200", rating: 4 },
+            { title: "Lecsó kolbásszal", image: "https://via.placeholder.com/300x200", rating: 3 },
+        ];
+    console.log("top rated", topRated)
     return (
         <div className="bg-rose-300 min-h-screen text-white">
-            <Header onNavigate={setCurrentPage} />
+            <button
+                onClick={() => setIsLoggedIn(!isLoggedIn)}
+                className="fixed bottom-4 right-4 bg-white text-black px-4 py-2 rounded shadow-md z-50"
+            >
+                {isLoggedIn ? "Kijelentkezés" : "Bejelentkezés"}
+            </button>
+
+            <Header onNavigate={setCurrentPage} isLoggedIn={isLoggedIn} />
+
 
             {currentPage === "home" && (
                 <>
@@ -52,13 +72,21 @@ export default function Home() {
 
             {currentPage === "submit" && <SubmitForm/>}
 
-            {currentPage === "register" && <RegisterForm />}
+            {currentPage === "register" && <RegisterForm onNavigate={setCurrentPage} />}
+
+            {currentPage === "terms" && <TermsOfUse />}
 
             {currentPage === "login" && <LoginForm />}
 
             {currentPage === "profile" && <ProfilePage/>}
 
             {currentPage === "team" && <TeamPage/>}
+
+            {currentPage === "recipes" && !selectedRecipe && (
+                <RecipeBrowserPage onSelect={() => setCurrentPage("recipeDetail")} />
+            )}
+
+            {currentPage === "recipeDetail" && <RecipeDetail />}
 
             <Footer />
         </div>
