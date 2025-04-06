@@ -5,8 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-
-class RecipeResource extends JsonResource
+class RecipeCardResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,13 +16,8 @@ class RecipeResource extends JsonResource
     {
         return [
             'title' => $this->recipe_name,
-            'description' => $this->recipe_description,
             'image_url' => $this->images->image_url,
-            'rating' => $this->likes_count,
-            'cuisine' =>$this->cuisine,
-            'prep_time'=>$this->prep_time,
-            'cook_time'=>$this->cook_time,
-            'course' =>$this->courses->course_name
+            'rating' => $this->likes_count
         ];
     }
 }

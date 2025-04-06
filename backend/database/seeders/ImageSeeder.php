@@ -21,6 +21,36 @@ class ImageSeeder extends Seeder
                 'image_url' => '/images/2.jpg',
                 'upload_date' => Carbon::now(),
             ],
+            [
+                'recipe_id' => 3,
+                'image_url' => '/images/2.jpg',
+                'upload_date' => Carbon::now(),
+            ],
+            [
+                'recipe_id' => 4,
+                'image_url' => '/images/2.jpg',
+                'upload_date' => Carbon::now(),
+            ],
+            [
+                'recipe_id' => 5,
+                'image_url' => '/images/2.jpg',
+                'upload_date' => Carbon::now(),
+            ],
+            [
+                'recipe_id' => 6,
+                'image_url' => '/images/2.jpg',
+                'upload_date' => Carbon::now(),
+            ],
+            [
+                'recipe_id' => 7,
+                'image_url' => '/images/2.jpg',
+                'upload_date' => Carbon::now(),
+            ],
+            [
+                'recipe_id' => 8,
+                'image_url' => '/images/2.jpg',
+                'upload_date' => Carbon::now(),
+            ],
         ]);
     }
 }

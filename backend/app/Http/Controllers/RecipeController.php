@@ -16,28 +16,28 @@ class RecipeController extends Controller
         return RecipeResource::collection($recipes);
     }
 
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'recipe_name' => 'required|string|max:255',
-            'recipe_description' => 'required|string',
-            'cuisine' => 'required|string',
-            'prep_time' => 'required|date_format:H:i:s',
-            'cook_time' => 'required|date_format:H:i:s',
-            'upload_date' => 'nullable|date',
-            'user_id' => 'required|exists:users,id',
-            'course_id' => 'nullable|exists:course,id',
-            'food_category_id' => 'nullable|exists:food_category,id',
-        ]);
-
-        $recipe = Recipe::create($validated);
-
-        return response()->json([
-            'message' => 'Recept sikeresen létrehozva!',
-            'recipe' => $recipe,
-        ], 201);
-    }
 }
+//    public function store(Request $request)
+//    {
+//        $validated = $request->validate([
+//            'recipe_name' => 'required|string|max:255',
+//            'recipe_description' => 'required|string',
+//            'cuisine' => 'required|string',
+//            'prep_time' => 'required|date_format:H:i:s',
+//            'cook_time' => 'required|date_format:H:i:s',
+//            'upload_date' => 'nullable|date',
+//            'user_id' => 'required|exists:users,id',
+//            'course_id' => 'nullable|exists:course,id',
+//            'food_category_id' => 'nullable|exists:food_category,id',
+//        ]);
+//
+//        $recipe = Recipe::create($validated);
+//
+//        return response()->json([
+//            'message' => 'Recept sikeresen létrehozva!',
+//            'recipe' => $recipe,
+//        ], 201);
+//    }
+
 
 

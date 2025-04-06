@@ -10,10 +10,6 @@ export default function Hero() {
                 <h2 className="text-3xl sm:text-5xl font-bold mb-4">
                     Üdvözöljük a Tastyfiee weboldalán!
                 </h2>
-                <p className="text-lg sm:text-xl mb-2">Új étel felfedezésére és keresésére</p>
-                <button className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition">
-                    Random Recept
-                </button>
             </div>
         </section>
     );

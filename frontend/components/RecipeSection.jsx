@@ -22,7 +22,7 @@ export default function RecipeSection({ title, recipes, bgColor = "bg-rose-400",
                         className="bg-pink-100 text-black rounded-full px-6 py-4 shadow-md w-60 text-center"
                     >
                         <img
-                            src={recipe.image}
+                            src={recipe.image_url}
                             alt={recipe.title}
                             className="w-full h-40 object-cover rounded-full mb-3"
                         />
