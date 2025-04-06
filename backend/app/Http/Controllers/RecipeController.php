@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Recipe;
 use App\Http\Resources\RecipeResource;
+use App\Models\Image;
 use Illuminate\Http\Request;
+use App\Models\RecipeStep;
 
 class RecipeController extends Controller
 {
@@ -15,6 +17,24 @@ class RecipeController extends Controller
 
         return RecipeResource::collection($recipes);
     }
+
+
+    public function show($id)
+    {
+        $recipe = Recipe::findOrFail($id);
+
+        $image = Image::where('recipe_id', $id)->first();
+        $recipe->image_url = $image ? $image->image_url : null;
+
+        $steps = RecipeStep::where('recipe_id', $id)
+            ->orderBy('step_number')
+            ->get();
+
+        $recipe->steps = $steps;
+
+        return response()->json(['data' => $recipe]);
+    }
+
 
 }
 //    public function store(Request $request)

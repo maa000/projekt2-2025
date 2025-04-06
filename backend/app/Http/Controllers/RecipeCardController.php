@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\RecipeCardResource;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+Use App\Models\Image;
 
 class RecipeCardController extends Controller
 {

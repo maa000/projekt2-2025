@@ -28,6 +28,7 @@ export default function Home() {
                 {recipes.map((recipe, i) => (
                     <RecipeCard
                         key={i}
+                        id={recipe.id}
                         title={recipe.title}
                         image_url={recipe.image_url}
                         rating={recipe.rating}

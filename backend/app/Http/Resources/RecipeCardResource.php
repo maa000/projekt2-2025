@@ -15,6 +15,7 @@ class RecipeCardResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id'=> $this->recipe_id,
             'title' => $this->recipe_name,
             'image_url' => $this->images->image_url,
             'rating' => $this->likes_count
