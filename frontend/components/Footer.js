@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+
 export default function Footer() {
     return (
         <footer className="bg-gray-900 text-white py-8 px-6 mt-10">
@@ -15,7 +19,7 @@ export default function Footer() {
                     <p>Contact</p>
                     <p>Support</p>
                     <p>Privacy</p>
-                    <p>Terms</p>
+                    <Link href="/terms" className="hover:underline"><p>Terms</p></Link>
                 </div>
                 <div className="space-y-1">
                     <p>Kategóriák</p>
