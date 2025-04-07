@@ -43,12 +43,27 @@ export default function RecipeDetailPage() {
                     <p className="text-gray-600 mb-2"><span className="font-semibold">Konyha típusa:</span> {recipe.cuisine}</p>
                     <p className="text-gray-600 mb-2"><span className="font-semibold">Előkészítés:</span> {recipe.prep_time}</p>
                     <p className="text-gray-600 mb-2"><span className="font-semibold">Főzési idő:</span> {recipe.cook_time}</p>
-                    <p className="text-gray-600 mb-4"><span className="font-semibold">Értékelés:</span> <div className="text-center">{renderStars(recipe.likes_count)}</div></p>
+                    <p className="text-gray-600 mb-4"><span className="font-semibold">Likeok száma:</span> {recipe.likes_count}</p>
                     <div className="mt-4">
                         <h2 className="text-xl font-semibold mb-2">Leírás</h2>
                         <p className="text-gray-700 leading-relaxed">{recipe.recipe_description}</p>
                     </div>
                 </div>
+            </div>
+            {/* Hozzávalók */}
+            <div className="max-w-5xl mx-auto mt-8 bg-white p-6 rounded-lg shadow">
+                <h2 className="text-xl font-semibold mb-4">Hozzávalók</h2>
+                {recipe.ingredients && recipe.ingredients.length > 0 ? (
+                    <ul className="list-disc list-inside space-y-2 text-gray-700">
+                        {recipe.ingredients.map((item, index) => (
+                            <li key={index}>
+                                {item.quantity} {item.unit} {item.name}
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className="text-gray-500">Nincsenek hozzávalók ehhez a recepthez.</p>
+                )}
             </div>
             <div className="max-w-5xl mx-auto mt-8 bg-white p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Lépések</h2>
@@ -65,6 +80,7 @@ export default function RecipeDetailPage() {
                     <p className="text-gray-500">Ehhez a recepthez még nem tartoznak lépések.</p>
                 )}
             </div>
+
         </section>
 
     );

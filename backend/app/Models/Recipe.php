@@ -35,6 +35,10 @@ class Recipe extends Model
         return $this->hasMany(RecipeLike::class, 'recipe_id');
     }
 
+    public function quantities()
+    {
+        return $this->hasMany(\App\Models\Quantity::class, 'recipe_id', 'recipe_id');
+    }
 
 }
 

@@ -20,7 +20,13 @@ class RecipeController extends Controller
 
     public function show($id)
     {
-        $recipe = Recipe::findOrFail($id);
+        $recipe = Recipe::with([
+            'quantities.ingredient',
+            'quantities.measurement'
+        ])
+            ->withCount('likes')
+            ->findOrFail($id);
+
 
         $image = Image::where('recipe_id', $id)->first();
         $recipe->image_url = $image ? $image->image_url : null;
@@ -30,6 +36,14 @@ class RecipeController extends Controller
             ->get();
 
         $recipe->steps = $steps;
+
+        $recipe->ingredients = collect($recipe->quantities)->map(function ($q) {
+            return [
+                'name' => $q->ingredient->ingredient_name ?? '-',
+                'quantity' => $q->ingredient_quantity,
+                'unit' => $q->measurement->measurement_name ?? '',
+            ];
+        });
 
         return response()->json(['data' => $recipe]);
     }
