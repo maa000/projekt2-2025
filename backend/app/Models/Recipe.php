@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recipe extends Model
 {
-    use HasFactory;
 
     protected $primaryKey = 'recipe_id';
     protected $fillable = [
+        'recipe_id',
         'recipe_name',
         'recipe_description',
         'cuisine',
@@ -19,7 +19,8 @@ class Recipe extends Model
         'upload_date',
         'user_id',
         'course_id',
-        'food_category_id'
+        'food_category_id',
+
     ];
 
     // Egy recepthez több kép tartozhat (most csak az első kell)
@@ -32,11 +33,6 @@ class Recipe extends Model
     public function likes()
     {
         return $this->hasMany(RecipeLike::class, 'recipe_id');
-    }
-
-    public function courses()
-    {
-        return $this->hasOne(Course::class, 'course_id');
     }
 
 

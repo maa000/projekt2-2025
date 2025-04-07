@@ -7,6 +7,9 @@ export default function RecipeDetailPage() {
     const { id } = useParams();
     const [recipe, setRecipe] = useState(null);
     const [error, setError] = useState(null);
+    const renderStars = (count) => {
+        return Array.from({ length: count }, (_, i) => <span key={i}>⭐</span>);
+    };
 
     useEffect(() => {
         if (!id) return;
@@ -40,8 +43,7 @@ export default function RecipeDetailPage() {
                     <p className="text-gray-600 mb-2"><span className="font-semibold">Konyha típusa:</span> {recipe.cuisine}</p>
                     <p className="text-gray-600 mb-2"><span className="font-semibold">Előkészítés:</span> {recipe.prep_time}</p>
                     <p className="text-gray-600 mb-2"><span className="font-semibold">Főzési idő:</span> {recipe.cook_time}</p>
-                    <p className="text-gray-600 mb-4"><span className="font-semibold">Értékelés:</span> {recipe.likes_count}/ 5</p>
-
+                    <p className="text-gray-600 mb-4"><span className="font-semibold">Értékelés:</span> <div className="text-center">{renderStars(recipe.likes_count)}</div></p>
                     <div className="mt-4">
                         <h2 className="text-xl font-semibold mb-2">Leírás</h2>
                         <p className="text-gray-700 leading-relaxed">{recipe.recipe_description}</p>

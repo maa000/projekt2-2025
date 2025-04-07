@@ -16,7 +16,7 @@ class RecipeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->recipe_id,
+            'recipe_id' => $this->recipe_id,
             'title' => $this->recipe_name,
             'description' => $this->recipe_description,
             'image_url' => $this->images->image_url,
@@ -24,7 +24,10 @@ class RecipeResource extends JsonResource
             'cuisine' =>$this->cuisine,
             'prep_time'=>$this->prep_time,
             'cook_time'=>$this->cook_time,
-            'course' =>$this->courses->course_name
+            'course' =>$this->courses->course_name,
+            'upload_date'=>$this->upload_date,
+            'user_id'=>$this->user_id
+//            'steps' =>$this->recipe_steps->recipe_step_name
         ];
     }
 }
