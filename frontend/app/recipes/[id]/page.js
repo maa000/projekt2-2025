@@ -7,9 +7,6 @@ export default function RecipeDetailPage() {
     const { id } = useParams();
     const [recipe, setRecipe] = useState(null);
     const [error, setError] = useState(null);
-    const renderStars = (count) => {
-        return Array.from({ length: count }, (_, i) => <span key={i}>⭐</span>);
-    };
 
     useEffect(() => {
         if (!id) return;
@@ -53,11 +50,11 @@ export default function RecipeDetailPage() {
             {/* Hozzávalók */}
             <div className="max-w-5xl mx-auto mt-8 bg-white p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Hozzávalók</h2>
-                {recipe.ingredients && recipe.ingredients.length > 0 ? (
+                {recipe.quantities && recipe.quantities.length > 0 ? (
                     <ul className="list-disc list-inside space-y-2 text-gray-700">
-                        {recipe.ingredients.map((item, index) => (
+                        {recipe.quantities.map((quantity, index) => (
                             <li key={index}>
-                                {item.quantity} {item.unit} {item.name}
+                                {quantity.quantity} {quantity.measurement} {quantity.ingredient}
                             </li>
                         ))}
                     </ul>
