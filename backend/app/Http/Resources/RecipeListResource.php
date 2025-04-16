@@ -23,7 +23,7 @@ class RecipeListResource extends JsonResource
                 ];
             }),
             'tags' => $this->tags->map(fn($tag) => ['name' => $tag->tag_name]),
-            'user_name' => $this->user->name ?? '',
+            'user_name' => $this->user->username ?? '',
             'course_name' => $this->course->course_name ?? '',
             'prep_time' => $this->prep_time,
             'cook_time' => $this->cook_time,

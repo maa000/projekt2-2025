@@ -1,47 +1,41 @@
 'use client';
+
 import { useState } from 'react';
+import api from '../../lib/axios';
 
 export default function LoginPage() {
-    const [form, setForm] = useState({ email: '', password: '' });
+    const [form, setForm] = useState({
+        email: '',
+        password: '',
+    });
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
+        await api.get('/sanctum/csrf-cookie');
         e.preventDefault();
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(form),
-            });
-
-            const data = await res.json();
-
-            if (res.ok) {
-                localStorage.setItem('token', data.access_token);
-                alert('Sikeres bejelentkezés!');
-            } else {
-                alert('Hiba: ' + (data.message || JSON.stringify(data.errors)));
-            }
-        } catch (err) {
-            console.error('Login error:', err);
-            alert('Hiba a bejelentkezésnél!');
+            const response = await api.post('/login', form);
+            const token = response.data.access_token;
+            localStorage.setItem('token', token);
+            alert('Sikeres bejelentkezés!');
+        } catch (error) {
+            console.error(error);
+            alert('Hibás adatok: ' + (error.response?.data?.message || 'Ismeretlen hiba'));
         }
     };
 
     return (
-        <div className="bg-rose-400 min-h-screen flex items-center justify-center text-black p-4">
-            <div className="bg-gray-900 p-8 rounded-3xl max-w-md w-full text-white">
-                <h2 className="text-3xl font-bold text-center mb-6">Belépés</h2>
-                <form className="space-y-4" onSubmit={handleSubmit}>
-                    <input name="email" type="email" placeholder="Email" className="bg-white text-black w-full p-3 rounded" onChange={handleChange} required />
-                    <input name="password" type="password" placeholder="Jelszó" className="bg-white text-black w-full p-3 rounded" onChange={handleChange} required />
-                    <button type="submit" className="bg-white text-black font-semibold w-full py-3 rounded-xl shadow hover:bg-gray-200 mt-4">Belépés</button>
-                </form>
-            </div>
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+            <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md space-y-4">
+                <h2 className="text-2xl font-bold mb-4">Bejelentkezés</h2>
+                <input type="email" name="email" onChange={handleChange} placeholder="Email" className="w-full border p-2 rounded" required />
+                <input type="password" name="password" onChange={handleChange} placeholder="Jelszó" className="w-full border p-2 rounded" required />
+                <button type="submit" className="w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600">Belépés</button>
+            </form>
         </div>
     );
 }
