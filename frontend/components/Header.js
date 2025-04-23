@@ -1,22 +1,41 @@
-"use client";
+'use client'
 
-import Link from "next/link";
+import Link from 'next/link'
+import useAuth from '@/hooks/useAuth'
+import { useEffect, useState } from 'react'
 
 export default function Header() {
+    const { user, logout } = useAuth()
+    const [isClient, setIsClient] = useState(false)
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
+
     return (
-        <header className="bg-zinc-900 text-white px-6 py-4 flex flex-col md:flex-row justify-between items-center">
-            <Link href="/" className="hover"><h1 className="text-2xl font-bold">Tastyfiee</h1></Link>
-            <nav className="mt-4 md:mt-0 flex flex-wrap gap-4 items-center">
-                <Link href="/" className="hover:underline">Otthon</Link>
-                <Link href="/recipes" className="hover:underline">Receptek</Link>
-                <Link href="/submit" className="hover:underline">Recept beküldése</Link>
-                <Link href="/profile" className="hover:underline">Profil</Link>
-                <Link href="/team" className="hover:underline">Team</Link>
-            </nav>
-            <div className="mt-4 md:mt-0 flex items-center gap-2">
-                <Link href="/login" className="hover:underline font-semibold">Bejelentkezés</Link>
-                <Link href="/register" className="hover:underline">Regisztráció</Link>
+        <header className="bg-black text-white p-4 flex justify-between">
+            <div className="text-xl font-bold">
+                <Link href="/">Tastyfiee</Link>
             </div>
+            <nav className="space-x-4">
+                <Link href="/">Kezdőlap</Link>
+                <Link href="/recipes">Receptek</Link>
+
+                {isClient && user ? (
+                    <>
+                        <Link href="/recept-bekuldese">Recept beküldése</Link>
+                        <Link href="/profil">Profil</Link>
+                        <button onClick={logout} className="text-red-400 ml-2">
+                            Kilépés
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <Link href="/login">Belépés</Link>
+                        <Link href="/register">Regisztráció</Link>
+                    </>
+                )}
+            </nav>
         </header>
-    );
+    )
 }
