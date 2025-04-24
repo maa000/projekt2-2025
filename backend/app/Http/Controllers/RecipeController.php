@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProfileResource;
 use App\Models\Recipe;
 use App\Http\Resources\RecipeResource;
 use App\Http\Resources\RecipeListResource;
+use Illuminate\Support\Facades\Auth;
 
 
 class RecipeController extends Controller
@@ -30,6 +32,17 @@ class RecipeController extends Controller
         $recipe = Recipe::with(['steps', 'ingredients','quantities', 'quantities.ingredient', 'quantities.measurement', 'likes', 'images'])->findOrFail($id);
         return new RecipeResource($recipe);
     }
+
+    public function userRecipes()
+    {
+        $user = Auth::user();
+
+        $recipes = Recipe::where('user_id', $user->id)->get();
+
+        return ProfileResource::collection($recipes);
+    }
+
+
 }
 
 
