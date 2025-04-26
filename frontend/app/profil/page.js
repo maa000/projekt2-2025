@@ -12,6 +12,7 @@ export default function ProfilPage() {
         email: '',
     })
     const [recipes, setRecipes] = useState([])
+    const [likedRecipes, setLikedRecipes] = useState([]);
     const router = useRouter()
 
     useEffect(() => {
@@ -32,6 +33,14 @@ export default function ProfilPage() {
             })
             .catch(err => {
                 console.error('Hiba a receptek lekérésekor:', err)
+            });
+
+        api.get('api/user/liked-recipes') // <-- Itt az API endpoint
+            .then(res => {
+                setLikedRecipes(res.data.data) // FONTOS: .data.data
+            })
+            .catch(err => {
+                console.error('Hiba a kedvelt receptek lekérésekor:', err);
             });
     }, [user])
 
@@ -65,8 +74,20 @@ export default function ProfilPage() {
                     </ul>
                 </div>
                 <div className="bg-gray-900 text-white p-4 rounded w-72 shadow-lg">
-                    <h3 className="text-lg font-bold mb-2">Mentett Receptek</h3>
-                    <p className="text-sm text-gray-400">----------------------------</p>
+                    <h3 className="text-lg font-bold mb-2">Kedvelt Receptek</h3>
+                    <ul className="space-y-2">
+                        {likedRecipes.length ? likedRecipes.map(recipe => (
+                            <li
+                                key={recipe.id}
+                                onClick={() => router.push(`/recipes/${recipe.id}`)}
+                                className="cursor-pointer hover:underline"
+                            >
+                                {recipe.title}
+                            </li>
+                        )) : (
+                            <p className="text-sm text-gray-400">Nincs kedvelt recept</p>
+                        )}
+                    </ul>
                 </div>
                 <button className="bg-red-700 text-white w-full py-2 rounded mt-4">Profil Törlése</button>
             </div>

@@ -54,6 +54,13 @@ class RecipeController extends Controller
         return ProfileResource::collection($recipes);
     }
 
+    public function likedRecipes()
+    {
+        $user = Auth::user();
+
+        return ProfileResource::collection($user->likedRecipes);
+    }
+
 
 }
 

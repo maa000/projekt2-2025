@@ -17,4 +17,9 @@ class RecipeLike extends Model
         'recipe_id',
         'like_date',
     ];
+    public function recipe()
+    {
+        return $this->hasMany(Recipe::class);
+    }
+
 }
