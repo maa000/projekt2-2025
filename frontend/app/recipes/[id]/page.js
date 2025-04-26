@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from 'next/navigation';
+import axios from "@/lib/axios";
+import useAuth from "@/hooks/useAuth";
 
 export default function RecipeDetailPage() {
     const { id } = useParams();
+    const { user } = useAuth(); // ← FONTOS: innen tudjuk, hogy be van-e jelentkezve
     const [recipe, setRecipe] = useState(null);
     const [error, setError] = useState(null);
 
@@ -15,9 +18,37 @@ export default function RecipeDetailPage() {
                 if (!res.ok) throw new Error("Nem sikerült betölteni az adatot");
                 return res.json();
             })
-            .then((data) => setRecipe(data.data))
+            .then((data) => {
+                console.log("RECIPE API VÁLASZ:", data); // IDE rakd be
+                setRecipe(data.data);
+            })
             .catch((err) => setError(err.message));
     }, [id]);
+
+
+    const handleLike = async () => {
+        try {
+            await axios.get('/sanctum/csrf-cookie');
+            const response = await axios.post(`/api/recipes/${id}/like`);
+
+            if (response.data.liked) {
+                // Ha like lett, növeljük
+                setRecipe(prev => ({
+                    ...prev,
+                    likes_count: (prev.likes_count || 0) + 1,
+                }));
+            } else {
+                // Ha unlike lett, csökkentjük
+                setRecipe(prev => ({
+                    ...prev,
+                    likes_count: Math.max((prev.likes_count || 1) - 1, 0),
+                }));
+            }
+        } catch (error) {
+            console.error("Hiba a likeolás közben:", error);
+        }
+    };
+
 
     if (error) return <p className="text-red-500 text-center">{error}</p>;
     if (!recipe) return <p className="text-center">Betöltés...</p>;
@@ -37,10 +68,18 @@ export default function RecipeDetailPage() {
                 {/* Jobb oldalon a szöveg */}
                 <div className="p-8 flex flex-col justify-center">
                     <h1 className="text-3xl md:text-4xl font-bold mb-4">{recipe.recipe_name}</h1>
+                    {user && (
+                        <button
+                            onClick={handleLike}
+                            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mb-4"
+                        >
+                            ❤️ Like ({recipe.likes_count})
+                        </button>
+                    )}
                     <p className="text-gray-600 mb-2"><span className="font-semibold">Konyha típusa:</span> {recipe.cuisine}</p>
                     <p className="text-gray-600 mb-2"><span className="font-semibold">Előkészítés:</span> {recipe.prep_time}</p>
                     <p className="text-gray-600 mb-2"><span className="font-semibold">Főzési idő:</span> {recipe.cook_time}</p>
-                    <p className="text-gray-600 mb-4"><span className="font-semibold">Likeok száma:</span> {recipe.likes_count}</p>
+                    {/*<p className="text-gray-600 mb-4"><span className="font-semibold">Likeok száma:</span> {recipe.likes_count}</p>*/}
                     <div className="mt-4">
                         <h2 className="text-xl font-semibold mb-2">Leírás</h2>
                         <p className="text-gray-700 leading-relaxed">{recipe.recipe_description}</p>

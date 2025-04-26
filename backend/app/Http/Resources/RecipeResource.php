@@ -20,25 +20,24 @@ class RecipeResource extends JsonResource
             'prep_time' => $this->prep_time,
             'cook_time' => $this->cook_time,
             'upload_date' => $this->upload_date,
-            'likes_count' => $this->likes->count(),
-            'image_url' =>$this->images->image_url,
-            'steps' => $this->steps->map(function ($step) {
+            'likes_count' => $this->likes ? $this->likes->count() : 0,
+            'image_url' => optional($this->images)->image_url,
+            'steps' => $this->steps ? $this->steps->map(function ($step) {
                 return [
                     'step_id' => $step->step_id,
                     'step_number' => $step->step_number,
                     'step_description' => $step->step_description,
                 ];
-            }),
-            'ingredients' => $this->ingredients->pluck('ingredient_name'),
-            'quantities' => $this->quantities->map(function ($quantity) {
+            }) : [],
+            'ingredients' => $this->ingredients ? $this->ingredients->pluck('ingredient_name') : [],
+            'quantities' => $this->quantities ? $this->quantities->map(function ($quantity) {
                 return [
                     'quantity_id' => $quantity->quantity_id,
-                    'ingredient' => $quantity->ingredient->ingredient_name,
+                    'ingredient' => optional($quantity->ingredient)->ingredient_name,
                     'quantity' => $quantity->ingredient_quantity,
-                    'measurement' => $quantity->measurement->measurement_name
+                    'measurement' => optional($quantity->measurement)->measurement_name
                 ];
-            })
+            }) : [],
         ];
     }
 }
-

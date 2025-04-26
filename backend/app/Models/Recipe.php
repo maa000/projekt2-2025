@@ -2,6 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\RecipeStep;
+use App\Models\Image;
+use App\Models\Ingredient;
+use App\Models\Quantity;
+use App\Models\RecipeLike;
+use App\Models\Course;
+use App\Models\User;
+use App\Models\Tag;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
