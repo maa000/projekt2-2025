@@ -51,6 +51,7 @@ export default function useAuth({ middleware, redirectIfAuthenticated } = {}) {
     }
 
     const logout = async () => {
+        await csrf()
         await api.post('/logout')
         mutate(null)
         router.push('/login')
