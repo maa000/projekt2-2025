@@ -5,6 +5,8 @@ use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\TokenAuthController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\MeasurementController;
 
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -18,9 +20,10 @@ Route::get('/recipes/{id}', [RecipeController::class, 'show']);
 Route::post('/register', [TokenAuthController::class, 'register']);
 Route::post('/login', [TokenAuthController::class, 'login']);
 
+Route::get('/ingredients', [IngredientController::class, 'index']);
+Route::get('/measurements', [MeasurementController::class, 'index']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [TokenAuthController::class, 'user']);
     Route::post('/logout', [TokenAuthController::class, 'logout']);
 });
-
-
