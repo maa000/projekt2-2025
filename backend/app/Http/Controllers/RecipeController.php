@@ -6,6 +6,7 @@ use App\Http\Resources\ProfileResource;
 use App\Models\Recipe;
 use App\Http\Resources\RecipeResource;
 use App\Http\Resources\RecipeListResource;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -13,7 +14,7 @@ class RecipeController extends Controller
 {
     public function index()
     {
-        $recipes = Recipe::with([
+        $recipes = Recipe::withCount('likes')->with([
             'images',
             'quantities.ingredient',
             'quantities.measurement',
@@ -24,6 +25,7 @@ class RecipeController extends Controller
         ])->get();
 
         return RecipeListResource::collection($recipes);
+
     }
 
 
@@ -60,7 +62,38 @@ class RecipeController extends Controller
 
         return ProfileResource::collection($user->likedRecipes);
     }
+    public function main()
+    {
+        $now = Carbon::now();
 
+        // Legjobbak - összes like alapján
+        $topRecipes = Recipe::withCount('likes')
+            ->orderByDesc('likes_count')
+            ->take(3)
+            ->get();
+
+        // Felkapott receptek - aktuális hónap like-jai alapján
+        $popularRecipes = Recipe::whereHas('likes', function ($query) use ($now) {
+            $query->whereYear('like_date', $now->year)
+                ->whereMonth('like_date', $now->month);
+        })
+            ->withCount(['likes as monthly_likes' => function ($query) use ($now) {
+                $query->whereYear('like_date', $now->year)
+                    ->whereMonth('like_date', $now->month);
+            }])
+            ->orderByDesc('monthly_likes')
+            ->take(3)
+            ->get();
+
+        // Random recept
+        $randomRecipe = Recipe::inRandomOrder()->first();
+
+        return response()->json([
+            'popular' => RecipeResource::collection($popularRecipes),
+            'top' => RecipeResource::collection($topRecipes),
+            'random' => new RecipeResource($randomRecipe),
+        ]);
+    }
 
 }
 

@@ -16,6 +16,9 @@ Route::middleware('auth:sanctum')->get('/user/liked-recipes', [RecipeController:
 Route::middleware('auth:sanctum')->post('/recipes/{id}/like', [RecipeLikeController::class, 'store']);
 
 Route::get('/recipes', [RecipeController::class, 'index']);
+
+Route::get('/recipes/home', [RecipeController::class, 'main']);
+
 Route::get('/recipes/{id}', [RecipeController::class, 'show']);
 
 
