@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import axios from "@/lib/axios";
 import useAuth from "@/hooks/useAuth";
+import '@/app/globals.css';
 
 export default function RecipeDetailPage() {
     const router = useRouter();
@@ -102,8 +103,8 @@ export default function RecipeDetailPage() {
     if (!recipe) return <p className="text-center">Betöltés...</p>;
     //console.log("Kép:", recipe.image_url);
     return (
-        <section className="px-6 md:px-12 py-12 bg-violet-100 min-h-screen">
-            <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:flex">
+        <section className="px-6 md:px-12 py-12 bg-brownCoffee min-h-screen">
+            <div className="max-w-5xl mx-auto bg-brownMiddle rounded-xl shadow-md overflow-hidden md:flex">
                 {/* Bal oldalon a kép */}
                 <div className="md:flex-shrink-0">
                     <img
@@ -124,13 +125,13 @@ export default function RecipeDetailPage() {
                             ❤️({recipe.likes_count})
                         </button>
                     )}
-                    <p className="text-gray-600 mb-2"><span className="font-semibold">Konyha típusa:</span> {recipe.cuisine}</p>
-                    <p className="text-gray-600 mb-2"><span className="font-semibold">Előkészítés:</span> {recipe.prep_time}</p>
-                    <p className="text-gray-600 mb-2"><span className="font-semibold">Főzési idő:</span> {recipe.cook_time}</p>
+                    <p className="text-white mb-2"><span className="font-semibold">Konyha típusa:</span> {recipe.cuisine}</p>
+                    <p className="text-white mb-2"><span className="font-semibold">Előkészítés:</span> {recipe.prep_time}</p>
+                    <p className="text-white mb-2"><span className="font-semibold">Főzési idő:</span> {recipe.cook_time}</p>
                     {/*<p className="text-gray-600 mb-4"><span className="font-semibold">Likeok száma:</span> {recipe.likes_count}</p>*/}
                     <div className="mt-4">
                         <h2 className="text-xl font-semibold mb-2">Leírás</h2>
-                        <p className="text-gray-700 leading-relaxed">{recipe.recipe_description}</p>
+                        <p className="text-white leading-relaxed">{recipe.recipe_description}</p>
                     </div>
                     {/*TAGEK*/}
                     {recipe.tags && recipe.tags.length > 0 && (
@@ -140,7 +141,7 @@ export default function RecipeDetailPage() {
                                 {recipe.tags.map((tag, index) => (
                                     <span
                                         key={index}
-                                        className="bg-yellow-200 text-yellow-900 text-sm font-medium px-3 py-1 rounded-full shadow"
+                                        className="bg-yellow-200 text-black text-sm font-medium px-3 py-1 rounded-full shadow"
                                     >
                     {tag.tag_name}
                 </span>
@@ -151,10 +152,10 @@ export default function RecipeDetailPage() {
                 </div>
             </div>
             {/* Hozzávalók */}
-            <div className="max-w-5xl mx-auto mt-8 bg-white p-6 rounded-lg shadow">
+            <div className="max-w-5xl mx-auto mt-8 bg-brownMiddle p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Hozzávalók</h2>
                 {recipe.quantities && recipe.quantities.length > 0 ? (
-                    <ul className="list-disc list-inside space-y-2 text-gray-700">
+                    <ul className="list-disc list-inside space-y-2 text-white">
                         {recipe.quantities.map((quantity, index) => (
                             <li key={index}>
                                 {quantity.quantity} {quantity.measurement} {quantity.ingredient}
@@ -165,11 +166,11 @@ export default function RecipeDetailPage() {
                     <p className="text-gray-500">Nincsenek hozzávalók ehhez a recepthez.</p>
                 )}
             </div>
-            <div className="max-w-5xl mx-auto mt-8 bg-white p-6 rounded-lg shadow">
+            <div className="max-w-5xl mx-auto mt-8 bg-brownMiddle p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Lépések</h2>
 
                 {recipe.steps && recipe.steps.length > 0 ? (
-                    <ol className="list-decimal list-inside space-y-2 text-gray-700 leading-relaxed">
+                    <ol className="list-decimal list-inside space-y-2 text-white leading-relaxed">
                         {recipe.steps.map((step) => (
                             <li key={step.step_id}>
                                 {step.step_description}
@@ -177,14 +178,14 @@ export default function RecipeDetailPage() {
                         ))}
                     </ol>
                 ) : (
-                    <p className="text-gray-500">Ehhez a recepthez még nem tartoznak lépések.</p>
+                    <p className="text-white">Ehhez a recepthez még nem tartoznak lépések.</p>
                 )}
             </div>
 
 
 
             {user && (
-                <div className="mt-6 bg-gray-100 p-4 rounded shadow">
+                <div className="mt-6 p-4 bg-brownMiddle rounded shadow">
                     <h4 className="text-lg font-semibold mb-2">Szólj hozzá</h4>
                     <textarea
                         value={newComment}
@@ -195,20 +196,20 @@ export default function RecipeDetailPage() {
                     />
                     <button
                         onClick={handleCommentSubmit}
-                        className="mt-2 px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700"
+                        className="mt-2 px-4 py-2 bg-brownlight text-black rounded hover:bg-brownCoffee"
                     >
                         Beküldés
                     </button>
                 </div>
             )}
             {/* Kommentek listázása */}
-            <div className="mt-12 bg-white p-6 rounded shadow-md">
+            <div className="mt-12 bg-brownMiddle p-6 rounded shadow-md">
                 <h3 className="text-xl font-semibold mb-4">Hozzászólások</h3>
                 {recipe.comments?.length > 0 ? (
                     recipe.comments.map((comment) => (
                         <div key={comment.comment_id} className="mb-4 border-b pb-2">
-                            <p className="text-gray-700"><strong>{comment.user?.username || 'Ismeretlen'}:</strong> {comment.comment_text}</p>
-                            <p className="text-sm text-gray-500">{new Date(comment.comment_date).toLocaleString()}</p>
+                            <p className="text-white"><strong>{comment.user?.username || 'Ismeretlen'}:</strong> {comment.comment_text}</p>
+                            <p className="text-sm text-white">{new Date(comment.comment_date).toLocaleString()}</p>
                             {/* Like rész */}
                             <div className="flex items-center gap-2 mt-2">
                                 <button
@@ -233,7 +234,7 @@ export default function RecipeDetailPage() {
                         </div>
                     ))
                 ) : (
-                    <p className="text-gray-500">Még nincs hozzászólás ehhez a recepthez.</p>
+                    <p className="text-white">Még nincs hozzászólás ehhez a recepthez.</p>
                 )}
             </div>
 
