@@ -121,9 +121,9 @@ export default function RecipesPage() {
                         <RecipeCard
                             key={i}
                             id={recipe.id}
-                            title={recipe.title}
-                            image_url={recipe.image_url}
-                            rating={recipe.rating}
+                            title={recipe.recipe_name}
+                            image_url={recipe.images?.[0]?.image_path || "/placeholder.jpg"}
+                            rating={recipe.average_rating || 0}
                         />
                     ))
                 ) : (

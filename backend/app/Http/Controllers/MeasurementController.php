@@ -9,6 +9,8 @@ class MeasurementController extends Controller
 {
     public function index(): JsonResponse
     {
-        return response()->json(Measurement::select('name')->orderBy('name')->get());
+        return response()->json(
+            Measurement::select('measurement_id as id', 'measurement_name as name')->orderBy('measurement_name')->get()
+        );
     }
 }

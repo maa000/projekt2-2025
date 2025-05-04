@@ -9,6 +9,8 @@ class IngredientController extends Controller
 {
     public function index(): JsonResponse
     {
-        return response()->json(Ingredient::select('name')->orderBy('name')->get());
+        return response()->json(
+            Ingredient::select('ingredient_id as id', 'ingredient_name as name')->orderBy('ingredient_name')->get()
+        );
     }
 }
