@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import RecipeCard from '../../components/RecipeCard';
+import '@/app/globals.css';
 
 export default function RecipesPage() {
     const [recipes, setRecipes] = useState([]);
@@ -50,10 +51,10 @@ export default function RecipesPage() {
     });
 
     return (
-        <section className="px-8 py-10 bg-violet-100 min-h-screen">
-            <h2 className="text-3xl font-bold text-center mb-6 border-b-2 border-black">Receptek</h2>
+        <section className="px-8 py-10 bg-brownCoffee min-h-screen">
+            <h2 className="text-3xl text-white font-bold text-center mb-6 border-b-2 border-white" >Receptek</h2>
 
-            <div className="bg-white p-6 rounded-lg shadow-lg mb-10 max-w-5xl mx-auto">
+            <div className="bg-brownlight p-6 rounded-lg shadow-lg mb-10 max-w-5xl mx-auto">
                 <h3 className="text-xl font-semibold mb-4">Keresőpanel</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <input
@@ -80,7 +81,7 @@ export default function RecipesPage() {
                     <button
                         type="button"
                         onClick={() => setIngredientInputs([...ingredientInputs, ''])}
-                        className="px-4 py-2 bg-purple-500 text-white rounded"
+                        className="px-4 py-2 bg-brownCoffee text-white rounded"
                     >
                         + Új hozzávaló
                     </button>

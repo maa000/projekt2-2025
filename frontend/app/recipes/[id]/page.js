@@ -73,7 +73,7 @@ export default function RecipeDetailPage() {
                             onClick={handleLike}
                             className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mb-4"
                         >
-                            ❤️ Like ({recipe.likes_count})
+                            ❤️({recipe.likes_count})
                         </button>
                     )}
                     <p className="text-gray-600 mb-2"><span className="font-semibold">Konyha típusa:</span> {recipe.cuisine}</p>

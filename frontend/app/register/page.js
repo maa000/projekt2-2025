@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import useAuth from '@/hooks/useAuth'
+import '@/app/globals.css';
 
 
 export default function RegisterPage() {
@@ -35,8 +36,8 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-80 space-y-4">
+        <div className="min-h-screen flex items-center justify-center bg-brownCoffee bg-opacity-100">
+            <form onSubmit={handleSubmit} className="bg-brownMiddle rounded shadow-md w-80 space-y-4">
                 <h2 className="text-xl font-bold">Regisztráció</h2>
                 <input name="username" type="text" placeholder="Felhasználónév" className="w-full p-2 border rounded" onChange={handleChange} required />
                 <input name="email" type="email" placeholder="Email" className="w-full p-2 border rounded" onChange={handleChange} required />

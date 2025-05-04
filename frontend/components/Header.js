@@ -13,7 +13,7 @@ export default function Header() {
     }, [])
 
     return (
-        <header className="bg-black text-white p-4 flex justify-between">
+        <header className="bg-gray-900 text-white p-8 flex justify-between">
             <div className="text-xl font-bold">
                 <Link href="/">Tastyfiee</Link>
             </div>
