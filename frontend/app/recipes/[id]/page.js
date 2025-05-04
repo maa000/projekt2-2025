@@ -2,14 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import axios from "@/lib/axios";
 import useAuth from "@/hooks/useAuth";
 
 export default function RecipeDetailPage() {
+    const router = useRouter();
     const { id } = useParams();
     const { user } = useAuth(); // ← FONTOS: innen tudjuk, hogy be van-e jelentkezve
     const [recipe, setRecipe] = useState(null);
     const [error, setError] = useState(null);
+    const [newComment, setNewComment] = useState('');
 
     useEffect(() => {
         if (!id) return;
@@ -27,18 +30,21 @@ export default function RecipeDetailPage() {
 
 
     const handleLike = async () => {
+        if (!user) {
+            router.push('/login'); // vagy '/next/login', ha ott van a login oldal
+            return;
+        }
+
         try {
             await axios.get('/sanctum/csrf-cookie');
             const response = await axios.post(`/api/recipes/${id}/like`);
 
             if (response.data.liked) {
-                // Ha like lett, növeljük
                 setRecipe(prev => ({
                     ...prev,
                     likes_count: (prev.likes_count || 0) + 1,
                 }));
             } else {
-                // Ha unlike lett, csökkentjük
                 setRecipe(prev => ({
                     ...prev,
                     likes_count: Math.max((prev.likes_count || 1) - 1, 0),
@@ -46,6 +52,48 @@ export default function RecipeDetailPage() {
             }
         } catch (error) {
             console.error("Hiba a likeolás közben:", error);
+        }
+    };
+    const handleCommentSubmit = async () => {
+        try {
+            await axios.get('/sanctum/csrf-cookie');
+            await axios.post(`/api/comments/${id}`, {
+                comment_text: newComment,
+            });
+
+            const res = await axios.get(`/api/recipes/${id}`);
+            setRecipe(res.data.data); // újratöltjük a friss adatokat
+            setNewComment('');
+        } catch (err) {
+            console.error("Hiba komment küldésnél:", err);
+        }
+    };
+    const handleCommentLike = async (commentId) => {
+        if (!user) {
+            router.push('/login');
+            return;
+        }
+
+        try {
+            await axios.get('/sanctum/csrf-cookie');
+            await axios.post(`/api/comments/${commentId}/like`);
+
+            const res = await axios.get(`/api/recipes/${id}`);
+            setRecipe(res.data.data);
+        } catch (err) {
+            console.error("Komment like hiba:", err);
+        }
+    };
+
+    const handleDeleteComment = async (commentId) => {
+        try {
+            await axios.delete(`/api/comments/${commentId}`);
+            setRecipe(prev => ({
+                ...prev,
+                comments: prev.comments.filter(c => c.comment_id !== commentId)
+            }));
+        } catch (error) {
+            console.error("Komment törlés hiba:", error.message);
         }
     };
 
@@ -84,6 +132,22 @@ export default function RecipeDetailPage() {
                         <h2 className="text-xl font-semibold mb-2">Leírás</h2>
                         <p className="text-gray-700 leading-relaxed">{recipe.recipe_description}</p>
                     </div>
+                    {/*TAGEK*/}
+                    {recipe.tags && recipe.tags.length > 0 && (
+                        <div className="my-6">
+                            <h4 className="text-lg font-semibold mb-2">Címkék:</h4>
+                            <div className="flex flex-wrap gap-2">
+                                {recipe.tags.map((tag, index) => (
+                                    <span
+                                        key={index}
+                                        className="bg-yellow-200 text-yellow-900 text-sm font-medium px-3 py-1 rounded-full shadow"
+                                    >
+                    {tag.tag_name}
+                </span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
             {/* Hozzávalók */}
@@ -114,6 +178,62 @@ export default function RecipeDetailPage() {
                     </ol>
                 ) : (
                     <p className="text-gray-500">Ehhez a recepthez még nem tartoznak lépések.</p>
+                )}
+            </div>
+
+
+
+            {user && (
+                <div className="mt-6 bg-gray-100 p-4 rounded shadow">
+                    <h4 className="text-lg font-semibold mb-2">Szólj hozzá</h4>
+                    <textarea
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        rows={3}
+                        className="w-full p-2 border rounded"
+                        placeholder="Írd meg a véleményed..."
+                    />
+                    <button
+                        onClick={handleCommentSubmit}
+                        className="mt-2 px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700"
+                    >
+                        Beküldés
+                    </button>
+                </div>
+            )}
+            {/* Kommentek listázása */}
+            <div className="mt-12 bg-white p-6 rounded shadow-md">
+                <h3 className="text-xl font-semibold mb-4">Hozzászólások</h3>
+                {recipe.comments?.length > 0 ? (
+                    recipe.comments.map((comment) => (
+                        <div key={comment.comment_id} className="mb-4 border-b pb-2">
+                            <p className="text-gray-700"><strong>{comment.user?.username || 'Ismeretlen'}:</strong> {comment.comment_text}</p>
+                            <p className="text-sm text-gray-500">{new Date(comment.comment_date).toLocaleString()}</p>
+                            {/* Like rész */}
+                            <div className="flex items-center gap-2 mt-2">
+                                <button
+                                    onClick={() => handleCommentLike(comment.comment_id)}
+                                    className="text-blue-500 hover:underline"
+                                >
+                                    ️  ❤️ Like
+                                </button>
+                                <span className="text-gray-600 text-sm">
+                                    {comment.likes_count} kedvelés
+                                </span>
+                                {user && user.id === comment.user?.id && (
+                                    <button
+                                        onClick={() => handleDeleteComment(comment.comment_id)}
+                                        className="text-red-500 hover:text-red-700"
+                                        title="Komment törlése"
+                                    >
+                                        🗑️
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className="text-gray-500">Még nincs hozzászólás ehhez a recepthez.</p>
                 )}
             </div>
 

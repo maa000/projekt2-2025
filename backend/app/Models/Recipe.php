@@ -10,6 +10,7 @@ use App\Models\RecipeLike;
 use App\Models\Course;
 use App\Models\User;
 use App\Models\Tag;
+use App\Models\Comment;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -71,5 +72,10 @@ class Recipe extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'recipe_tags', 'recipe_id', 'tag_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'recipe_id');
     }
 }

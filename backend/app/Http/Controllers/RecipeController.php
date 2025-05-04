@@ -6,6 +6,7 @@ use App\Http\Resources\ProfileResource;
 use App\Models\Recipe;
 use App\Http\Resources\RecipeResource;
 use App\Http\Resources\RecipeListResource;
+use App\Http\Resources\CommentResource;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,6 +43,8 @@ class RecipeController extends Controller
             'tags',
             'user',
             'course',
+            'comments.likes',
+            'comments.user',
         ])->findOrFail($id);
 
         return new RecipeResource($recipe);

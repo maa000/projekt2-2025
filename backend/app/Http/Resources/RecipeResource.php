@@ -38,6 +38,24 @@ class RecipeResource extends JsonResource
                     'measurement' => optional($quantity->measurement)->measurement_name
                 ];
             }) : [],
+            'comments' => $this->comments ? $this->comments->map(function ($comment) {
+                return [
+                    'comment_id' => $comment->comment_id,
+                    'user' => [
+                        'id' => optional($comment->user)->id,
+                        'username' => optional($comment->user)->username,
+                    ],
+                    'comment_text' => $comment->comment_text,
+                    'comment_date' => $comment->comment_date,
+                    'likes_count' => $comment->likes->count() ?? 0,
+                ];
+            }) : [],
+            'tags' => $this->tags ? $this->tags->map(function ($tag) {
+                return [
+                    'tag_id' => $tag->tag_id,
+                    'tag_name' => $tag->tag_name,
+                ];
+            }) : [],
         ];
     }
 }
