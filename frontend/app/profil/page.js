@@ -52,9 +52,20 @@ export default function ProfilPage() {
                 <div className="bg-white text-black py-2 px-4 rounded w-full text-center font-semibold">{formData.username}</div>
                 <div className="bg-white text-black py-2 px-4 rounded w-full text-center">{formData.email}</div>
                 <div className="flex space-x-4 mt-4">
-                    <button className="bg-brownCoffee text-white px-4 py-2 rounded">Share</button>
-                    <button className="bg-brownCoffee text-white px-4 py-2 rounded">Edit</button>
+                    <button
+                        className="bg-brownCoffee text-white px-4 py-2 rounded"
+                        onClick={() => router.push('/emailreset')}
+                    >
+                        Email módosítás
+                    </button>
+                    <button
+                        className="bg-brownCoffee text-white px-4 py-2 rounded"
+                        onClick={() => router.push('/passwordreset')}
+                    >
+                        Jelszó módosítás
+                    </button>
                 </div>
+
             </div>
 
             <div className="ml-12 space-y-8">

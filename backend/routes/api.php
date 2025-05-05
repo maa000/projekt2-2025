@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentLikeController;
+use App\Http\Controllers\EmailChangeController;
+use App\Http\Controllers\PasswordChangeController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -18,6 +20,11 @@ Route::middleware('auth:sanctum')->get('/user/liked-recipes', [RecipeController:
 Route::middleware('auth:sanctum')->post('/recipes/{id}/like', [RecipeLikeController::class, 'store']);
 
 Route::middleware('auth:sanctum')->post('/comments/{id}', [CommentController::class, 'store']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::put('/user/email', [EmailChangeController::class, 'update']);
+    Route::put( '/user/password', [PasswordChangeController::class, 'update']);
+});
 
 Route::get('/recipes', [RecipeController::class, 'index']);
 
@@ -32,4 +39,6 @@ Route::post('/recipes/{id}/comments', [CommentController::class, 'store'])->midd
 Route::post('/comments/{id}/like', [CommentLikeController::class, 'toggle'])->middleware('auth:sanctum');
 
 Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
+
+
 

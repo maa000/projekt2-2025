@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import useAuth from '@/hooks/useAuth'
@@ -36,6 +37,9 @@ export default function LoginPage() {
                 <input name="password" type="password" placeholder="Jelszó" className="w-full p-2 border rounded" onChange={handleChange} required />
                 {errors.length > 0 && <div className="text-red-500 text-sm">{errors.join(', ')}</div>}
                 <button type="submit" className="w-full bg-brownlight text-black py-2 rounded">Belépés</button>
+                <p className="text-sm text-right mt-2">
+                    <Link href="/forgot-password" className="text-blue-500 hover:underline">Elfelejtetted a jelszavad?</Link>
+                </p>
             </form>
         </div>
     )

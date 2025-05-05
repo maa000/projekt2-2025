@@ -57,6 +57,42 @@ export default function useAuth({ middleware, redirectIfAuthenticated } = {}) {
         router.push('/login')
     }
 
+    const forgotPassword = async ({ email, setStatus, setErrors }) => {
+        await csrf()
+        setStatus(null)
+        setErrors([])
+
+        try {
+            const response = await api.post('/forgot-password', { email })
+            setStatus(response.data.status)
+        } catch (error) {
+            if (error.response?.status === 422) {
+                setErrors(error.response.data.errors)
+            }
+        }
+    }
+
+    const resetPassword = async ({ email, token, password, password_confirmation, setSuccess, setError }) => {
+        await csrf()
+        setSuccess(null)
+        setError([])
+
+        try {
+            const response = await api.post('/reset-password', {
+                token,
+                email,
+                password,
+                password_confirmation,
+            })
+            setSuccess(response.data.status)
+            router.push('/login')
+        } catch (error) {
+            if (error.response?.status === 422) {
+                setError(error.response.data.errors)
+            }
+        }
+    }
+
     useEffect(() => {
         if (middleware === 'guest' && user) {
             router.push(redirectIfAuthenticated || '/')
@@ -72,5 +108,7 @@ export default function useAuth({ middleware, redirectIfAuthenticated } = {}) {
         register,
         login,
         logout,
+        forgotPassword,
+        resetPassword,
     }
 }
