@@ -8,6 +8,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\EmailChangeController;
 use App\Http\Controllers\PasswordChangeController;
+use App\Http\Controllers\UserController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -40,5 +41,6 @@ Route::post('/comments/{id}/like', [CommentLikeController::class, 'toggle'])->mi
 
 Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
 
+Route::middleware('auth:sanctum')->delete('/user/delete', [UserController::class, 'destroy']);
 
 

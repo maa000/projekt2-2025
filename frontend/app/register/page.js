@@ -24,6 +24,16 @@ export default function RegisterPage() {
     const handleSubmit = async e => {
         e.preventDefault()
 
+        const newErrors = []
+        if (!form.email.includes('@')) newErrors.push('Az email cím nem érvényes.')
+        if (form.password.length < 8) newErrors.push('A jelszónak legalább 8 karakteresnek kell lennie.')
+        if (form.password !== form.password_confirmation) newErrors.push('A jelszavak nem egyeznek.')
+
+        if (newErrors.length > 0) {
+            setErrors(newErrors)
+            return
+        }
+
         await register({
             username: form.username,
             email: form.email,
