@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import useAuth from '@/hooks/useAuth'
 import api from '@/lib/axios'
+import axios from '@/lib/axios';
 import { useRouter } from 'next/navigation'
 import '@/app/globals.css';
 
@@ -45,6 +46,21 @@ export default function ProfilPage() {
             });
     }, [user])
 
+    const handleDeleteAccount = async () => {
+        if (!confirm("Biztosan törölni szeretnéd a profilodat? Ez nem visszavonható!")) return;
+
+        try {
+            await axios.get('/sanctum/csrf-cookie');
+            await axios.delete('/api/user/delete');
+
+            localStorage.removeItem('authToken');
+            router.push('/login');
+        } catch (error) {
+            console.error("Profil törlés hiba:", error);
+            alert("Hiba történt a törlés során.");
+        }
+    };
+
     return (
         <div className="min-h-screen bg-brownCoffee p-8 flex justify-center">
             <div className="bg-brownMiddle text-white p-6 rounded w-96 flex flex-col items-center space-y-4">
@@ -52,8 +68,8 @@ export default function ProfilPage() {
                 <div className="bg-white text-black py-2 px-4 rounded w-full text-center font-semibold">{formData.username}</div>
                 <div className="bg-white text-black py-2 px-4 rounded w-full text-center">{formData.email}</div>
                 <div className="flex space-x-4 mt-4">
-                    <button className="bg-brownCoffee text-white px-4 py-2 rounded">Share</button>
-                    <button className="bg-brownCoffee text-white px-4 py-2 rounded">Edit</button>
+                    {/*<button className="bg-brownCoffee text-white px-4 py-2 rounded">Share</button>*/}
+                    {/*<button className="bg-brownCoffee text-white px-4 py-2 rounded">Edit</button>*/}
                 </div>
             </div>
 
@@ -90,7 +106,12 @@ export default function ProfilPage() {
                         )}
                     </ul>
                 </div>
-                <button className="bg-brownlight text-white w-full py-2 rounded mt-4">Profil Törlése</button>
+                <button
+                    onClick={handleDeleteAccount}
+                    className="bg-brownlight text-white w-full py-2 rounded mt-4"
+                >
+                    Profil Törlése
+                </button>
             </div>
         </div>
     )
