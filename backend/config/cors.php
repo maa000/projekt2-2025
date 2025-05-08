@@ -15,13 +15,13 @@ return [
     |
     */
 
-    'paths' => ['*'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'logout', 'register', 'reset-password', 'reset-password-token', 'verify-email', 'user'],
 
     'allowed_methods' => ['*'],
 
     'allowed_origins' => ['http://localhost:3000'],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => ['*'],
 
     'allowed_headers' => ['*'],
 

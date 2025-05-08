@@ -51,18 +51,17 @@ export default function RecipesPage() {
     });
 
     return (
-        <section className="px-8 py-10 bg-brownCoffee min-h-screen">
-            <h2 className="text-3xl text-white font-bold text-center mb-6 border-b-2 border-white" >Receptek</h2>
-
-            <div className="bg-brownlight p-6 rounded-lg shadow-lg mb-10 max-w-5xl mx-auto">
-                <h3 className="text-xl font-semibold mb-4">Keresőpanel</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <section className="px-8 py-10  bg-brownCoffee min-h-screen">
+            <div className="bg-brownMiddle p-6 rounded-lg shadow-lg mb-10 max-w-5xl mx-auto">
+                <h2 className="text-3xl bg-brownlight text-black font-bold text-center mb-6 p-3 rounded shadow" >Receptek</h2>
+                <h3 className="text-xl font-semibold  mb-4">Keresőpanel</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-black ">
                     <input
                         type="text"
                         placeholder="Keresés névben/leírásban..."
                         value={searchQuery}
                         onChange={e => setSearchQuery(e.target.value)}
-                        className="p-2 border rounded"
+                        className="p-2 border bg-brownlight rounded"
                     />
                     {ingredientInputs.map((input, idx) => (
                         <input
@@ -75,13 +74,13 @@ export default function RecipesPage() {
                                 updated[idx] = e.target.value;
                                 setIngredientInputs(updated);
                             }}
-                            className="p-2 border rounded"
+                            className="p-2 border bg-brownlight rounded"
                         />
                     ))}
                     <button
                         type="button"
                         onClick={() => setIngredientInputs([...ingredientInputs, ''])}
-                        className="px-4 py-2 bg-brownCoffee text-white rounded"
+                        className="px-4 py-2 bg-brownCoffee  text-white hover:bg-brownlight hover:text-black rounded shadow"
                     >
                         + Új hozzávaló
                     </button>
@@ -90,33 +89,33 @@ export default function RecipesPage() {
                         placeholder="Tag..."
                         value={selectedTag}
                         onChange={e => setSelectedTag(e.target.value)}
-                        className="p-2 border rounded"
+                        className="p-2 border bg-brownlight rounded"
                     />
                     <input
                         type="text"
                         placeholder="Felhasználó neve..."
                         value={selectedUser}
                         onChange={e => setSelectedUser(e.target.value)}
-                        className="p-2 border rounded"
+                        className="p-2 border bg-brownlight rounded"
                     />
                     <input
                         type="text"
                         placeholder="Fogás típusa (course)..."
                         value={selectedCourse}
                         onChange={e => setSelectedCourse(e.target.value)}
-                        className="p-2 border rounded"
+                        className="p-2 border bg-brownlight rounded"
                     />
                     <input
                         type="number"
                         placeholder="Max. össz. idő (perc)"
                         value={maxTotalTime}
                         onChange={e => setMaxTotalTime(e.target.value)}
-                        className="p-2 border rounded"
+                        className="p-2 border bg-brownlight rounded shadow"
                     />
                 </div>
             </div>
 
-            <div className="flex gap-6 flex-wrap justify-center">
+            <div className="flex gap-6 flex-wrap justify-center bg-brownMiddle p-4 rounded shadow">
                 {filteredRecipes.length > 0 ? (
                     filteredRecipes.map((recipe, i) => (
                         <RecipeCard

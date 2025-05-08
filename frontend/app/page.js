@@ -34,7 +34,7 @@ export default function Home() {
                             router.push(`/recipes/${random.recipe_id}`);
                         }
                     }}
-                    className="mt-4 px-4 py-2 bg-brownlight text-gray-800 rounded shadow"
+                    className="mt-4 px-4 py-2 bg-brownCoffee text-white hover:bg-brownlight/80 hover:text-black rounded shadow"
                 >
                     Random Recept
                 </button>

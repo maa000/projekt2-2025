@@ -108,7 +108,7 @@ export default function RecipeDetailPage() {
                 {/* Bal oldalon a kép */}
                 <div className="md:flex-shrink-0">
                     <img
-                        src={recipe.image_url || "/images/placeholder.jpg"}
+                        src={recipe.image_url }
                         alt={recipe.recipe_name}
                         className="w-full md:w-96 h-64 md:h-full object-cover"
                     />

@@ -20,8 +20,7 @@ export default function useAuth({ middleware, redirectIfAuthenticated } = {}) {
 
     const register = async ({ setErrors, ...props }) => {
         await csrf()
-
-        setErrors([])
+        setErrors({})
 
         try {
             await api.post('/register', props)
@@ -30,22 +29,28 @@ export default function useAuth({ middleware, redirectIfAuthenticated } = {}) {
         } catch (error) {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors)
+            } else {
+                setErrors({ general: ['Ismeretlen hiba történt.'] })
             }
         }
     }
 
     const login = async ({ setErrors, ...props }) => {
         await csrf()
-
         setErrors([])
 
         try {
             await api.post('/login', props)
+            setErrors([])
             await mutate()
             router.push('/')
         } catch (error) {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors)
+            } else if (error.response?.status === 401) {
+                setErrors({ login: ['Nincs ilyen felhasználó vagy hibás jelszó.'] })
+            } else {
+                setErrors({ general: ['Ismeretlen hiba történt.'] })
             }
         }
     }

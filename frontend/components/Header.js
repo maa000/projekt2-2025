@@ -18,21 +18,21 @@ export default function Header() {
                 <Link href="/" className="text-3xl">Tastyfiee</Link>
             </div>
             <nav className="space-x-4">
-                <Link href="/" className="text-xl">Kezdőlap</Link>
-                <Link href="/recipes" className="text-xl">Receptek</Link>
+                <Link href="/" className="text-xl hover:underline">Kezdőlap</Link>
+                <Link href="/recipes" className="text-xl hover:underline">Receptek</Link>
 
                 {isClient && user ? (
                     <>
-                        <Link href="/recept-bekuldese" className="text-xl">Recept beküldése</Link>
-                        <Link href="/profil" className="text-xl">Profil</Link>
-                        <button onClick={logout} className="text-red-400 text-xl ml-2">
+                        <Link href="/submit-recipe" className="text-xl hover:underline">Recept beküldése</Link>
+                        <Link href="/profil" className="text-xl hover:underline">Profil</Link>
+                        <button onClick={logout} className="text-red-400 text-xl ml-2 hover:underline">
                             Kilépés
                         </button>
                     </>
                 ) : (
                     <>
-                        <Link href="/login" className="text-xl">Belépés</Link>
-                        <Link href="/register" className="text-xl">Regisztráció</Link>
+                        <Link href="/login" className="text-xl hover:underline">Belépés</Link>
+                        <Link href="/register" className="text-xl hover:underline">Regisztráció</Link>
                     </>
                 )}
             </nav>

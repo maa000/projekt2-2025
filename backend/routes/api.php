@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\RecipeFormController;
 use App\Http\Controllers\RecipeLikeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ Route::middleware('auth:sanctum')->post('/recipes/{id}/like', [RecipeLikeControl
 
 Route::middleware('auth:sanctum')->post('/comments/{id}', [CommentController::class, 'store']);
 
+Route::middleware('auth:sanctum')->delete('/user/delete', [UserController::class, 'destroy']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::put('/user/email', [EmailChangeController::class, 'update']);
     Route::put( '/user/password', [PasswordChangeController::class, 'update']);
@@ -35,12 +38,15 @@ Route::get('/recipes/{id}', [RecipeController::class, 'show']);
 
 Route::get('/recipes/{id}/comments', [CommentController::class, 'index']);
 
+Route::get('/recipe-form-data', [RecipeFormController::class, 'getFormOptions']);
+
+Route::middleware('auth:sanctum')->post('/recipes-data', [RecipeController::class, 'store']);
+
 Route::post('/recipes/{id}/comments', [CommentController::class, 'store'])->middleware('auth:sanctum');
 
 Route::post('/comments/{id}/like', [CommentLikeController::class, 'toggle'])->middleware('auth:sanctum');
 
 Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
 
-Route::middleware('auth:sanctum')->delete('/user/delete', [UserController::class, 'destroy']);
 
 

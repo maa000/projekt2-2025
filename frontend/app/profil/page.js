@@ -62,20 +62,20 @@ export default function ProfilPage() {
     };
 
     return (
-        <div className="min-h-screen bg-brownCoffee p-8 flex justify-center">
+        <div className="min-h-screen bg-brownCoffee  p-8 flex justify-center">
             <div className="bg-brownMiddle text-white p-6 rounded w-96 flex flex-col items-center space-y-4">
                 <div className="bg-gray-200 rounded-full h-28 w-28 flex items-center justify-center text-black text-3xl font-bold">👤</div>
                 <div className="bg-white text-black py-2 px-4 rounded w-full text-center font-semibold">{formData.username}</div>
                 <div className="bg-white text-black py-2 px-4 rounded w-full text-center">{formData.email}</div>
                 <div className="flex space-x-4 mt-4">
                     <button
-                        className="bg-brownCoffee text-white px-4 py-2 rounded"
+                        className="bg-brownCoffee text-white transition hover:bg-brownlight/80 hover:text-black  px-4 py-2 rounded"
                         onClick={() => router.push('/emailreset')}
                     >
                         Email módosítás
                     </button>
                     <button
-                        className="bg-brownCoffee text-white px-4 py-2 rounded"
+                        className="bg-brownCoffee text-white hover:bg-brownlight/80 hover:text-black px-4 py-2 rounded"
                         onClick={() => router.push('/passwordreset')}
                     >
                         Jelszó módosítás
@@ -118,7 +118,7 @@ export default function ProfilPage() {
                 </div>
                 <button
                     onClick={handleDeleteAccount}
-                    className="bg-brownlight text-white w-full py-2 rounded mt-4"
+                    className="bg-black text-white hover:bg-red-700/80 w-full py-2 rounded mt-4"
                 >
                     Profil Törlése
                 </button>

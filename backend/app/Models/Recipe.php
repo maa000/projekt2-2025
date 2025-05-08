@@ -19,6 +19,8 @@ class Recipe extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $primaryKey = 'recipe_id';
 
     protected $fillable = [
@@ -30,7 +32,8 @@ class Recipe extends Model
         'cuisine',
         'prep_time',
         'cook_time',
-        'upload_date'
+        'upload_date',
+        'image_path'
     ];
 
     public function steps()
@@ -46,7 +49,8 @@ class Recipe extends Model
     public function ingredients()
     {
         return $this->belongsToMany(Ingredient::class, 'quantity', 'recipe_id', 'ingredient_id')
-            ->withPivot('ingredient_quantity', 'measurement_id');
+            ->withPivot('ingredient_quantity', 'measurement_id')
+           ;
     }
 
     public function quantities()
@@ -78,4 +82,18 @@ class Recipe extends Model
     {
         return $this->hasMany(Comment::class, 'recipe_id');
     }
+    public function getIngredientsAttribute()
+    {
+        return Quantity::with('ingredient', 'measurement')
+            ->where('recipe_id', $this->recipe_id)
+            ->get()
+            ->map(function ($q) {
+                return [
+                    'name' => $q->ingredient->ingredient_name ?? null,
+                    'amount' => $q->ingredient_quantity,
+                    'unit' => $q->measurement->measurement_name ?? null,
+                ];
+            });
+    }
+
 }
