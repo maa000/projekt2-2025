@@ -82,7 +82,7 @@ export default function LoginPage() {
 
                     <button
                         type="submit"
-                        className="w-full bg-brownlight text-black py-2 rounded transition hover:bg-brownlight/80 hover:text-white"
+                        className="w-full bg-brownCoffee text-white py-2 rounded transition hover:bg-brownlight hover:text-black"
                     >
                         Belépés
                     </button>

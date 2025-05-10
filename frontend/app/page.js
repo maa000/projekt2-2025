@@ -24,8 +24,8 @@ export default function Home() {
     }, []);
 
     return (
-        <section className="px-8 py-10 bg-brownCoffee min-h-screen">
-            <div className="bg-brownMiddle text-white text-center py-12 mb-8 shadow-lg rounded">
+        <section className="px-8 py-10  min-h-screen">
+            <div className="bg-radial-[at_50%_75%] from-brownUltra to-brownlight/80 text-white text-center py-12 mb-8 shadow-lg rounded-xl">
                 < Hero/>
                 <h1 className="text-3xl font-bold">Új étel felfedezésére és keresésére</h1>
                 <button
@@ -34,13 +34,13 @@ export default function Home() {
                             router.push(`/recipes/${random.recipe_id}`);
                         }
                     }}
-                    className="mt-4 px-4 py-2 bg-brownCoffee text-white hover:bg-brownlight/80 hover:text-black rounded shadow"
+                    className="mt-4 px-4 py-2 bg-brownCoffee text-white transition hover:bg-brownlight hover:text-black rounded shadow"
                 >
                     Random Recept
                 </button>
             </div>
 
-            <div className="bg-brownMiddle shadow-lg rounded" >
+            <div className="bg-radial-[at_50%_75%] from-brownUltra to-brownlight/80 shadow-lg rounded-xl" >
                 <h2 className="text-3xl font-bold text-white text-center mb-4">Felkapott receptek</h2>
                 <div className="flex flex-wrap justify-center gap-25 p-8 mb-10">
                     {popular.map((recipe) => (
@@ -54,7 +54,7 @@ export default function Home() {
                     ))}
                 </div>
             </div>
-            <div className="bg-brownMiddle shadow-lg rounded ">
+            <div className="bg-radial-[at_50%_75%] from-brownUltra to-brownlight/80 shadow-lg rounded-xl ">
                 <h2 className="text-3xl font-bold text-white text-center mb-4">Legjobbak</h2>
                 <div className="flex flex-wrap justify-center gap-25 p-8 mb-10">
                     {top.map((recipe) => (

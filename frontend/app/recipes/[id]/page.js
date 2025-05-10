@@ -103,8 +103,8 @@ export default function RecipeDetailPage() {
     if (!recipe) return <p className="text-center">Betöltés...</p>;
     //console.log("Kép:", recipe.image_url);
     return (
-        <section className="px-6 md:px-12 py-12 bg-brownCoffee min-h-screen">
-            <div className="max-w-5xl mx-auto bg-brownMiddle rounded-xl shadow-md overflow-hidden md:flex">
+        <section className="px-6 md:px-12 py-12 min-h-screen">
+            <div className="max-w-5xl mx-auto bg-radial-[at_75%_50%] from-brownUltra to-brownlight/80 rounded-xl shadow-md overflow-hidden md:flex">
                 {/* Bal oldalon a kép */}
                 <div className="md:flex-shrink-0">
                     <img
@@ -120,7 +120,7 @@ export default function RecipeDetailPage() {
                     {user && (
                         <button
                             onClick={handleLike}
-                            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mb-4"
+                            className="bg-pink-500 transition hover:bg-pink-600 text-white font-bold py-2 px-4 rounded mb-4"
                         >
                             ❤️({recipe.likes_count})
                         </button>
@@ -152,7 +152,7 @@ export default function RecipeDetailPage() {
                 </div>
             </div>
             {/* Hozzávalók */}
-            <div className="max-w-5xl mx-auto mt-8 bg-brownMiddle p-6 rounded-lg shadow">
+            <div className="max-w-5xl mx-auto mt-8 bg-radial-[at_25%_50%] from-brownUltra to-brownlight/80 p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Hozzávalók</h2>
                 {recipe.quantities && recipe.quantities.length > 0 ? (
                     <ul className="list-disc list-inside space-y-2 text-white">
@@ -166,7 +166,7 @@ export default function RecipeDetailPage() {
                     <p className="text-gray-500">Nincsenek hozzávalók ehhez a recepthez.</p>
                 )}
             </div>
-            <div className="max-w-5xl mx-auto mt-8 bg-brownMiddle p-6 rounded-lg shadow">
+            <div className="max-w-5xl mx-auto mt-8 bg-radial-[at_25%_50%] from-brownUltra to-brownlight/80 p-6 rounded-lg shadow">
                 <h2 className="text-xl font-semibold mb-4">Lépések</h2>
 
                 {recipe.steps && recipe.steps.length > 0 ? (
@@ -185,7 +185,7 @@ export default function RecipeDetailPage() {
 
 
             {user && (
-                <div className="mt-6 p-4 bg-brownMiddle rounded shadow">
+                <div className="mt-6 p-4 bg-radial-[at_25%_50%] from-brownUltra to-brownlight/80 rounded shadow">
                     <h4 className="text-lg font-semibold mb-2">Szólj hozzá</h4>
                     <textarea
                         value={newComment}
@@ -196,14 +196,14 @@ export default function RecipeDetailPage() {
                     />
                     <button
                         onClick={handleCommentSubmit}
-                        className="mt-2 px-4 py-2 bg-brownlight text-black rounded hover:bg-brownCoffee"
+                        className="mt-2 px-4 py-2 bg-brownCoffee text-white rounded transition hover:bg-brownlight hover:text-black"
                     >
                         Beküldés
                     </button>
                 </div>
             )}
             {/* Kommentek listázása */}
-            <div className="mt-12 bg-brownMiddle p-6 rounded shadow-md">
+            <div className="mt-12 bg-radial-[at_25%_50%] from-brownUltra to-brownlight/80 p-6 rounded shadow-md">
                 <h3 className="text-xl font-semibold mb-4">Hozzászólások</h3>
                 {recipe.comments?.length > 0 ? (
                     recipe.comments.map((comment) => (

@@ -126,7 +126,7 @@ export default function RegisterPage() {
 
                     <button
                         type="submit"
-                        className="w-full bg-green-600 text-white py-2 rounded transition hover:bg-green-700"
+                        className="w-full bg-brownCoffee text-white py-2 rounded transition hover:bg-brownlight hover:text-black"
                     >
                         Regisztráció
                     </button>

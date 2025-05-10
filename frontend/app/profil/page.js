@@ -62,20 +62,20 @@ export default function ProfilPage() {
     };
 
     return (
-        <div className="min-h-screen bg-brownCoffee  p-8 flex justify-center">
-            <div className="bg-brownMiddle text-white p-6 rounded w-96 flex flex-col items-center space-y-4">
+        <div className="min-h-screen p-15  flex  justify-center">
+            <div className="bg-radial-[at_50%_25%] from-brownUltra to-brownlight/80 text-white p-6 rounded-lg h-150 w-96 flex flex-col items-center space-y-4">
                 <div className="bg-gray-200 rounded-full h-28 w-28 flex items-center justify-center text-black text-3xl font-bold">👤</div>
-                <div className="bg-white text-black py-2 px-4 rounded w-full text-center font-semibold">{formData.username}</div>
-                <div className="bg-white text-black py-2 px-4 rounded w-full text-center">{formData.email}</div>
+                <div className="bg-brownlight text-black py-2 px-4 rounded-lg w-full text-center font-semibold">{formData.username}</div>
+                <div className="bg-brownlight text-black py-2 px-4 rounded-lg w-full text-center">{formData.email}</div>
                 <div className="flex space-x-4 mt-4">
                     <button
-                        className="bg-brownCoffee text-white transition hover:bg-brownlight/80 hover:text-black  px-4 py-2 rounded"
+                        className="bg-brownCoffee text-white transition hover:bg-brownlight hover:text-black  px-4 py-2 rounded shadow"
                         onClick={() => router.push('/emailreset')}
                     >
                         Email módosítás
                     </button>
                     <button
-                        className="bg-brownCoffee text-white hover:bg-brownlight/80 hover:text-black px-4 py-2 rounded"
+                        className="bg-brownCoffee text-white transition hover:bg-brownlight hover:text-black px-4 py-2 rounded shadow"
                         onClick={() => router.push('/passwordreset')}
                     >
                         Jelszó módosítás
@@ -84,7 +84,7 @@ export default function ProfilPage() {
             </div>
 
             <div className="ml-12 space-y-8">
-                <div className="bg-brownMiddle text-white p-4 rounded w-72 shadow-lg">
+                <div className="bg-radial-[at_50%_75%] from-brownUltra to-brownlight/80 text-white p-4 rounded-lg w-72 shadow-lg">
                     <h3 className="text-lg font-bold mb-2">Receptjeim</h3>
                     <ul className="space-y-2">
                         {recipes.length ? recipes.map(recipe => (
@@ -100,7 +100,7 @@ export default function ProfilPage() {
                         )}
                     </ul>
                 </div>
-                <div className="bg-brownMiddle text-white p-4 rounded w-72 shadow-lg">
+                <div className="bg-radial-[at_50%_75%] from-brownUltra to-brownlight/80 text-white p-4 rounded-lg w-72 shadow-lg">
                     <h3 className="text-lg font-bold mb-2">Kedvelt Receptek</h3>
                     <ul className="space-y-2">
                         {likedRecipes.length ? likedRecipes.map(recipe => (
@@ -118,7 +118,7 @@ export default function ProfilPage() {
                 </div>
                 <button
                     onClick={handleDeleteAccount}
-                    className="bg-black text-white hover:bg-red-700/80 w-full py-2 rounded mt-4"
+                    className="bg-black text-white transition hover:bg-red-700 w-full py-2 rounded mt-4"
                 >
                     Profil Törlése
                 </button>

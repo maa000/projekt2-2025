@@ -1,5 +1,7 @@
 'use client';
 
+import '@/app/globals.css'
+
 export default function TeamPage() {
     const team = [
         {
@@ -30,27 +32,27 @@ export default function TeamPage() {
     ];
 
     return (
-        <section className="px-6 md:px-12 py-12 bg-violet-100 min-h-screen">
+        <section className="px-6 md:px-12 py-12  min-h-screen bg-radial-[at_50%_75%] from-brownUltra to-brownlight/80 rounded-lg shadow">
             <div className="max-w-5xl mx-auto">
                 {/* Fejléc */}
-                <h1 className="text-4xl font-bold text-center mb-8">A Csapat</h1>
+                <h1 className="text-4xl font-bold text-center p-3 bg-brownlight mb-8 rounded-lg shadow">A Csapat</h1>
 
                 {/* Bemutatkozás */}
-                <div className="bg-white p-6 md:p-10 rounded-xl shadow mb-12 text-center">
+                <div className="bg-brownlight p-6 md:p-10 rounded-lg shadow mb-12 text-center">
                     <h2 className="text-2xl font-semibold mb-4">Kupakalakulat</h2>
-                    <p className="text-lg text-gray-700 leading-relaxed">
+                    <p className="text-lg text-black leading-relaxed">
                         Mi egy professzionális cookinolo applikáció készítő alakulat vagyunk, akik a kulináris innováció élvonalában menetelnek – főzünk, kódolunk és GOONINGolunk!
                     </p>
                 </div>
 
                 {/* Csapattag kártyák */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 ">
                     {team.map((member, index) => (
                         <div
                             key={index}
-                            className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform transition hover:scale-105 hover:shadow-2xl"
+                            className="bg-brownlight rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform transition hover:scale-105 hover:shadow-2xl"
                         >
-                            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-violet-300 mb-4">
+                            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-brownMiddle mb-4">
                                 <img
                                     src={member.image}
                                     alt={member.name}

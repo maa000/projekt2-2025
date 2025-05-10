@@ -1,8 +1,11 @@
+
+import '@/app/globals.css'
+
 export default function TermsPage() {
     return (
         <section>
-            <div className="bg-purple-100 min-h-screen py-16 px-6 flex items-center justify-center">
-                <div className="bg-white text-black max-w-4xl w-full p-10 rounded-xl shadow-md border border-gray-300">
+            <div className="bg-radial-[at_50%_75%] from-brownUltra to-brownlight/80 min-h-screen py-10 px-6 flex items-center justify-center rounded-lg shadow">
+                <div className="bg-brownlight text-black max-w-4xl w-full p-15 rounded-xl shadow-md border border-brownlight">
                     <h1 className="text-4xl font-bold text-center mb-6">Felhasználási Feltételek</h1>
                     <p className="text-justify leading-relaxed text-lg">
                         A Tastyfiee weboldal használatával Ön elfogadja az alábbi feltételeket. A weboldal célja receptek megosztása, felfedezése, és gasztronómiai közösség építése. Felhasználóként Ön vállalja, hogy valós adatokat ad meg a regisztráció során, nem tölt fel jogvédett vagy sértő tartalmat, és tiszteletben tartja a közösségi normákat.

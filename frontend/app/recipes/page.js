@@ -51,9 +51,9 @@ export default function RecipesPage() {
     });
 
     return (
-        <section className="px-8 py-10  bg-brownCoffee min-h-screen">
-            <div className="bg-brownMiddle p-6 rounded-lg shadow-lg mb-10 max-w-5xl mx-auto">
-                <h2 className="text-3xl bg-brownlight text-black font-bold text-center mb-6 p-3 rounded shadow" >Receptek</h2>
+        <section className="px-8 py-10 min-h-screen ">
+            <div className="bg-radial-[at_50%_75%] from-brownUltra to-brownlight/80 p-6 rounded-lg shadow-lg mb-10 max-w-5xl mx-auto">
+                <h2 className="text-3xl bg-brownlight text-black font-bold text-center mb-6 p-3 rounded-lg shadow" >Receptek</h2>
                 <h3 className="text-xl font-semibold  mb-4">Keresőpanel</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-black ">
                     <input
@@ -80,7 +80,7 @@ export default function RecipesPage() {
                     <button
                         type="button"
                         onClick={() => setIngredientInputs([...ingredientInputs, ''])}
-                        className="px-4 py-2 bg-brownCoffee  text-white hover:bg-brownlight hover:text-black rounded shadow"
+                        className="px-4 py-2 bg-brownCoffee  text-white transition hover:bg-brownlight hover:text-black rounded shadow"
                     >
                         + Új hozzávaló
                     </button>
@@ -115,7 +115,7 @@ export default function RecipesPage() {
                 </div>
             </div>
 
-            <div className="flex gap-6 flex-wrap justify-center bg-brownMiddle p-4 rounded shadow">
+            <div className="flex gap-6 flex-wrap justify-center bg-radial-[at_50%_75%] from-brownUltra to-brownlight/80 p-4 rounded-lg shadow">
                 {filteredRecipes.length > 0 ? (
                     filteredRecipes.map((recipe, i) => (
                         <RecipeCard
