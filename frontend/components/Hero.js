@@ -2,7 +2,7 @@ export default function Hero() {
     return (
         <section className="relative text-white">
             <img
-                src="/images/hero.jpg"
+                src="/images/Hero.jpg"
                 alt="Hero"
                 className="w-full h-96 object-cover"
             />
